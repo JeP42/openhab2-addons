@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="smlmeter"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+
+	<thing-type id="smlmeter">
+		<label>SMLMeter Binding Thing</label>
+		<description>Gateway to meter which sends metering data via SML protocol</description>
+
+		<channels>
+			<channel id="180" typeId="180" />
+			<channel id="181" typeId="181" />
+			<channel id="280" typeId="280" />
+			<channel id="281" typeId="281" />
+			<channel id="1570" typeId="1570" />
+			<channel id="powerdirection" typeId="powerDirection" /> 
+			<channel id="vendor" typeId="vendor" />
+			<channel id="deviceid" typeId="deviceid" />
+		</channels>
+
+		<config-description>
+			<parameter name="host" type="text" required="true">
+				<label>Host</label>
+				<description>Hostname or IP of the gateway</description>
+			</parameter>
+			<parameter name="port" type="integer" required="true">
+                <label>Port</label>
+                <description>Port of the gateway</description>
+            </parameter>
+            <parameter name="type" type="text" required="true">
+                <label>Gateway type</label>
+                <description>The ID of the gateway type</description>
+            </parameter>
+            <parameter name="refreshInterval" type="integer">
+                <label>Refresh Interval</label>
+                <description>refresh interval in seconds</description>
+                <default>2</default>
+            </parameter>
+		</config-description>
+	</thing-type>
+
+	<channel-type id="180" advanced="true">
+        <item-type>Number</item-type>
+        <label>1.8.0</label>
+        <description>Energy Consumption total count</description>
+        <category>Energy</category>
+        <state readOnly="true" pattern="%.5f kWh"/>
+    </channel-type>
+    <channel-type id="181" advanced="true">
+        <item-type>Number</item-type>
+        <label>1.8.1</label>
+        <description>Energy Consumption tarif 1 count</description>
+        <category>Energy</category>
+        <state readOnly="true" pattern="%.5f kWh"/>
+    </channel-type>
+    
+    <channel-type id="280" advanced="true">
+        <item-type>Number</item-type>
+        <label>2.8.0</label>
+        <description>Energy Production total count</description>
+        <category>Energy</category>
+        <state readOnly="true" pattern="%.5f kWh"/>
+    </channel-type>
+    
+	<channel-type id="281" advanced="true">
+        <item-type>Number</item-type>
+        <label>2.8.1</label>
+        <description>Energy Production tarif 1 count</description>
+        <category>Energy</category>
+        <state readOnly="true" pattern="%.5f kWh"/>
+    </channel-type>
+    
+    <channel-type id="1570" advanced="true">
+        <item-type>Number</item-type>
+        <label>15.7.0</label>
+        <description>Active Power</description>
+        <category>Energy</category>
+        <state readOnly="true" pattern="%.5f W"/>
+    </channel-type>
+
+    <channel-type id="vendor" advanced="true">
+        <item-type>String</item-type>
+        <label>Vendor</label>
+        <description>The meter vendor</description>
+        <state readOnly="true" pattern="%s"/>
+    </channel-type>
+    
+    <channel-type id="deviceid" advanced="true">
+        <item-type>String</item-type>
+        <label>Device Id</label>
+        <description>The Id of the meter </description>
+        <state readOnly="true" pattern="%s"/>
+    </channel-type>
+    
+    <channel-type id="powerDirection" advanced="true">
+        <item-type>String</item-type>
+        <label>Power direction</label>
+        <description>whether the current power is consumption or production</description>
+        <state readOnly="true" pattern="%s"/>
+    </channel-type>
+
+</thing:thing-descriptions>

@@ -121,6 +121,8 @@
     <module>org.openhab.binding.silvercrestwifisocket</module>
     <module>org.openhab.binding.sleepiq</module>
     <module>org.openhab.binding.smaenergymeter</module>
+    <module>org.openhab.binding.smlmeter</module>
+    <module>org.openhab.binding.smlmeter.test</module>
     <module>org.openhab.binding.solaredge</module>
     <module>org.openhab.binding.solarlog</module>
     <module>org.openhab.binding.somfytahoma</module>
