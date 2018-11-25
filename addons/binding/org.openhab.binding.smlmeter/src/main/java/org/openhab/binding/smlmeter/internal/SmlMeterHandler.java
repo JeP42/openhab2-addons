@@ -48,6 +48,9 @@ public class SmlMeterHandler extends BaseThingHandler {
     @Nullable
     ScheduledFuture<?> refreshJob;
 
+    @Nullable
+    private ScheduledFuture<?> initJob;
+
     PowerDirectionHelper powerDirectionHelper = new PowerDirectionHelper();
 
     public SmlMeterHandler(Thing thing) {
@@ -122,9 +125,15 @@ public class SmlMeterHandler extends BaseThingHandler {
                 this.updateState(SmlMeterBindingConstants.CHANNEL_VENDOR, new StringType(snapshot.getVendorId()));
                 this.updateState(SmlMeterBindingConstants.CHANNEL_DEVICE_ID, new StringType(snapshot.getDeviceId()));
             }
-        } catch (ConnectorException | IOException e) {
-            this.logger.debug("Exception occurred during execution: {}", e.getMessage(), e);
+
+        } catch (ConnectorException e) {
+            // this situation is unrecoverable, set thing OFFLINE and give up...
+            this.logger.error("An unrecoverable error occurred during execution: {}", e.getMessage(), e);
             this.updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.OFFLINE.COMMUNICATION_ERROR, e.getMessage());
+            this.refreshJob.cancel(false);
+        } catch (IOException e) {
+            // this may be a temporary problem... log the message and continue...
+            this.logger.warn("An error occured during execution, will try again. Message was: {}", e.getMessage());
         }
     }
 

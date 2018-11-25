@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * Exception class used for exceptions related to the SmlMeterConnector
  *
- * @author pfaffmann
+ * @author pfaffmann - Initial contribution
  *
  */
 public class ConnectorException extends Exception {

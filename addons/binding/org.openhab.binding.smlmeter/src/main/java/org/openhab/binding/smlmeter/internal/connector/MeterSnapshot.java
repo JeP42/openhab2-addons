@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  *
  * Represents a snapshot of the meter values at a particular time
  *
- * @author pfaffmann
+ * @author pfaffmann - Initial contribution
  *
  */
 public class MeterSnapshot {

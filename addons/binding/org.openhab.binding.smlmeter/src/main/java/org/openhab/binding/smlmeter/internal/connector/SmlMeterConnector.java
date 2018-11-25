@@ -14,7 +14,7 @@ import java.io.IOException;
  * Interface of an abstract device which is capable to connect with an energy meter which pushes its values via SML
  * protocol.
  *
- * @author pfaffmann
+ * @author pfaffmann - Initial contribution
  *
  */
 public interface SmlMeterConnector {

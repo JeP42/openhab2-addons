@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 /**
  * SML parser
  *
- * @author pfaffmann
+ * @author pfaffmann - Initial contribution
  *
  */
 
@@ -71,7 +71,7 @@ public class SmlReader {
      * @throws IOException
      * @throws ConnectorException
      */
-    public MeterSnapshot read(String rawSmlFile) throws IOException, ConnectorException {
+    public MeterSnapshot read(String rawSmlFile) throws IOException {
 
         MeterSnapshot snapshot = null;
 
@@ -113,7 +113,8 @@ public class SmlReader {
                     }
                 }
             } else {
-                throw new ConnectorException("The given SML file does no contain any messages");
+                this.logger.warn("The given SML file {} does no contain any messages. Ignore and continue...",
+                        smlFile.toString());
             }
         }
 
@@ -189,12 +190,20 @@ public class SmlReader {
                     10000L);
             return messageFromFileExtractor.getSmlMessage();
         } catch (IOException e) {
-            if (e.getMessage().contains("wrong crc")) {
-                this.logger.debug("wrong crc detected for SML message. Ignoring the message...");
-                return null;
-            } else {
-                throw e;
-            }
+            this.handleIOException(e);
+        } catch (IllegalArgumentException e) {
+            this.logger.debug("SML file is not a valid hex string. Ignoring the message... Exception message: {}",
+                    e.getMessage());
+        }
+        return null;
+    }
+
+    private void handleIOException(IOException e) throws IOException {
+        if (e.getMessage().contains("wrong crc")) {
+            this.logger.debug("wrong crc detected for SML message. Ignoring the message... Exception message: {}",
+                    e.getMessage());
+        } else {
+            throw e;
         }
     }
 

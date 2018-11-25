@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Factory to create a concrete type of meter connector. The connector is capable of reading SML from an energy meter.
  * Currently, there is only one type of connector supported: COMET COM-1 gateway with IR reader.
  *
- * @author pfaffmann
+ * @author pfaffmann - Initial contribution
  *
  */
 public class SmlMeterConnectorFactory {

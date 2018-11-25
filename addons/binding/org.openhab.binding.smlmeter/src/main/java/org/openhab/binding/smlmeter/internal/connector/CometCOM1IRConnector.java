@@ -23,12 +23,12 @@ import org.slf4j.LoggerFactory;
  * Implementation of the Comet Smart Meter Gateway COM-1 with IR reader to retrieve data from a power meters IR
  * interface according to IEC 62056-21
  *
- * @author pfaffmann
+ * @author pfaffmann - Initial contribution
  *
  */
 public class CometCOM1IRConnector implements SmlMeterConnector {
 
-    private static final int CONNECT_TIMEOUT_IN_MILLISECONDS = 2000;
+    private static final int CONNECT_TIMEOUT_IN_MILLISECONDS = 5000;
 
     protected Logger logger = LoggerFactory.getLogger(CometCOM1IRConnector.class);
 
@@ -72,8 +72,8 @@ public class CometCOM1IRConnector implements SmlMeterConnector {
             this.logger.debug("Closing socket connection...");
             if (this.socket != null && socket.isConnected()) {
                 this.socket.close();
-                this.socket = null;
             }
+            this.socket = null;
         } catch (IOException e) {
             throw new RuntimeException("An unexpected exception occured while closing ressources.", e);
         }
